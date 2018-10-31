@@ -11,7 +11,7 @@ python train_cifar.py \
   --data_dir=$DATA_DIR \
   --dataset=cifar10 \
   --model_dir=$MODEL_DIR \
-  --train_epochs=100 \
+  --train_epochs=25 \
   --N=3 \
   --filters=32 \
   --num_nodes=5 \
