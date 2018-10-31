@@ -94,7 +94,7 @@ bash train_cifar100_final.sh
 To directly evaluate an architecture, for example, our best architecture discovered, please download the checkpoint above, move all the files to ```NAO/cnn/models/cifar10 or NAO/cnn/models/cifar100/ ```, and run:
 ```
 cd NAO/cnn
-bash test_cifar10.sh     #This should give you an accuracy of 97.96% (error rate of 2.04%)
+bash test_cifar10.sh     #This should give you an accuracy of 97.94% (error rate of 2.06%)
 bash test_cifar100.sh    #This should give you an accuracy of 85.20% (error rate of 14.80%)
 ```
 
