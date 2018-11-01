@@ -42,7 +42,7 @@ To directly evaluate an architecture, for example, our best architecture discove
 ```
 cd NAO/cnn
 bash test_cifar10.sh     #This should give you an accuracy of 97.94% (error rate of 2.06%)
-bash test_cifar100.sh    #This should give you an accuracy of 85.20% (error rate of 14.80%)
+bash test_cifar100.sh    #This should give you an accuracy of 85.20% (error rate of 14.81%)
 ```
 
 

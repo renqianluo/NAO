@@ -15,8 +15,8 @@ python train_cifar.py \
   --N=6 \
   --filters=128 \
   --num_nodes=5 \
-  --drop_path_keep_prob=0.7 \
-  --dense_dropout_keep_prob=0.6 \
+  --drop_path_keep_prob=0.6 \
+  --dense_dropout_keep_prob=0.8 \
   --batch_size=128 \
   --epochs_per_eval=1 \
   --lr_max=0.024 \
