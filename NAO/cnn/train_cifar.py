@@ -267,9 +267,9 @@ def input_fn(split, mode, data_dir, dataset, batch_size, cutout_size, num_epochs
 
   if mode == 'train':
     if split:
-      dataset = dataset.shuffle(buffer_size=_NUM_IMAGES['train'])
+      data_set = data_set.shuffle(buffer_size=_NUM_IMAGES['train'])
     else:
-      dataset = dataset.shuffle(buffer_size=_NUM_IMAGES['train'] + _NUM_IMAGES['valid'])
+      data_set = data_set.shuffle(buffer_size=_NUM_IMAGES['train'] + _NUM_IMAGES['valid'])
 
   data_set = data_set.map(lambda x:parse_record(x, dataset), num_parallel_calls=4)
   data_set = data_set.map(
