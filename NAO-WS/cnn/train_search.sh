@@ -1,7 +1,7 @@
 nvidia-smi
 export PYTHONPATH=./:$PYTHONPATH
-MODEL=search_ptb
-MODEL_DIR=models
+MODEL=search_cifar10
+MODEL_DIR=models/$MODEL
 LOG_DIR=logs
 DATA_DIR=data/cifar10
 
