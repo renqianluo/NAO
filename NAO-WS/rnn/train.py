@@ -73,7 +73,7 @@ parser.add_argument('--max_seq_len_delta', type=int, default=20,
 parser.add_argument('--single_gpu', default=True, action='store_false', 
                     help='use single GPU')
 parser.add_argument('--gpu', type=int, default=0, help='GPU device to use')
-parser.add_argument('--arch', type=str, default='DARTS', help='which architecture to use')
+parser.add_argument('--arch', type=str, default=None, help='which architecture to use')
 parser.add_argument('--test_frequency', type=int, default=1000, help='test frequency')
 args = parser.parse_args()
 
@@ -120,10 +120,9 @@ test_data = batchify(corpus.test, test_batch_size, args)
 
 
 ntokens = len(corpus.dictionary)
-try:
-    genotype = eval("genotypes.%s" % args.arch)
-except:
-    genotype = parse_arch(args.arch)
+
+assert args.arch
+args.arch = parse_arch(args.arch)
 
 if os.path.exists(os.path.join(args.save, 'model.pt')):
     print("Found model.pt in {}, automatically continue training.".format(args.save))
@@ -134,7 +133,7 @@ if args.continue_train:
 else:
     model = model.RNNModel(ntokens, args.emsize, args.nhid, args.nhidlast,
                        args.dropout, args.dropouth, args.dropoutx, args.dropouti, args.dropoute, 
-                       cell_cls=model.DARTSCell, genotype=genotype)
+                       cell_cls=model.NAOCell, arch=args.arch)
 
 if args.cuda:
     if args.single_gpu:
@@ -147,7 +146,7 @@ else:
 total_params = sum(x.data.nelement() for x in model.parameters())
 logging.info('Args: {}'.format(args))
 logging.info('Model total parameters: {}'.format(total_params))
-logging.info('Genotype: {}'.format(genotype))
+logging.info('Arch: {}'.format(args.arch))
 
 
 def evaluate(data_source, batch_size=10):

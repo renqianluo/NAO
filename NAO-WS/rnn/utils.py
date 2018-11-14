@@ -206,3 +206,7 @@ def normalize_target(target_list):
   max_val = max(target_list)
   res = [(i - min_val) / (max_val - min_val) for i in target_list]
   return res
+
+def parse_arch(arch):
+  return list(map(int, arch.strip().split()))
+
