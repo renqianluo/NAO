@@ -114,9 +114,9 @@ corpus = data.Corpus(args.data)
 
 eval_batch_size = 10
 test_batch_size = 1
-train_data = batchify(corpus.train, args.batch_size, args)
-val_data = batchify(corpus.valid, eval_batch_size, args)
-test_data = batchify(corpus.test, test_batch_size, args)
+train_data = batchify(corpus.train, args.batch_size, args.cuda)
+val_data = batchify(corpus.valid, eval_batch_size, args.cuda)
+test_data = batchify(corpus.test, test_batch_size, args.cuda)
 
 
 ntokens = len(corpus.dictionary)
@@ -156,7 +156,7 @@ def evaluate(data_source, batch_size=10):
     ntokens = len(corpus.dictionary)
     hidden = model.init_hidden(batch_size)
     for i in range(0, data_source.size(0) - 1, args.bptt):
-        data, targets = get_batch(data_source, i, args, evaluation=True)
+        data, targets = get_batch(data_source, i, args.bptt, evaluation=True)
         targets = targets.view(-1)
 
         log_prob, hidden = parallel_model(data, hidden)
@@ -187,7 +187,7 @@ def train():
         lr2 = optimizer.param_groups[0]['lr']
         optimizer.param_groups[0]['lr'] = lr2 * seq_len / args.bptt
         model.train()
-        data, targets = get_batch(train_data, i, args, seq_len=seq_len)
+        data, targets = get_batch(train_data, i, args.bptt, seq_len=seq_len)
 
         optimizer.zero_grad()
 
