@@ -11,7 +11,7 @@ import json
 import math
 import time
 import model
-from dag import *
+import dag
 
 _HEIGHT = 32
 _WIDTH = 32
