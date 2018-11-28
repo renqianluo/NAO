@@ -997,8 +997,7 @@ class Model(object):
         self.train_acc = tf.reduce_sum(self.train_acc)
         
         tf_variables = [
-            var for var in tf.trainable_variables() if (
-                var.name.startswith(self.name) and "aux_head" not in var.name)]
+            var for var in tf.trainable_variables() if var.name.startswith(self.name)]
         self.num_vars = count_model_params(tf_variables)
         tf.logging.info("Model has {0} params".format(self.num_vars))
 
