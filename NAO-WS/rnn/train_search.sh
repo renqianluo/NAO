@@ -9,7 +9,7 @@ mkdir -p $MODEL_DIR/child
 mkdir -p $MODEL_DIR/controller
 mkdir -p $LOG_DIR
 
-python main_search.py \
+python train_search.py \
   --data_dir=$DATA_DIR \
   --model_dir=$MODEL_DIR \
   --child_train_epochs=1000 \
