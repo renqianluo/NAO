@@ -3,6 +3,9 @@ This is the Code for the Paper [Neural Architecture Optimization](https://arxiv.
 
 Authors: [Renqian Luo](http://home.ustc.edu.cn/~lrq)\*, [Fei Tian](https://ustctf.github.io/)\*, [Tao Qin](https://www.microsoft.com/en-us/research/people/taoqin/), [En-Hong Chen](http://staff.ustc.edu.cn/~cheneh/), [Tie-Yan Liu](https://www.microsoft.com/en-us/research/people/tyliu/). *=equal contribution
 
+## NEW:
+For Pytorch implementation of cnn part, please visit [`NAO_pytorch`](https://github.com/renqianluo/NAO_pytorch), which includes the results on Imagenet.
+
 ## License
 The codes and models in this repo are released under the GNU GPLv3 license.
 
@@ -82,6 +85,7 @@ You can train the best architecture discovered (show in Fig. 1 in the Appendix o
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 |CIFAR-10| ./NAO/cnn/train_cifar10_final.sh | 2 P40 | 5 days | [`Google Drive`](https://drive.google.com/open?id=1TPgAZB7ZXAxaYmTj8efriJ6IbmSgMJKX) [`Baidu Pan`](https://pan.baidu.com/s/1r8nQIRE7F4jBTEKKqyaZuA)| 2.10% |
 |CIFAR-100| ./NAO/cnn/train_cifar100_final.sh | 2 P40 | 5 days | [`Google Drive`](https://drive.google.com/open?id=15eDukFiGoGmqLbZAES826eFem99V_2bI) [`Baidu Pan`](https://pan.baidu.com/s/1r8nQIRE7F4jBTEKKqyaZuA)| 14.80% |
+|Imagenet| refer to [`NAO_pytorch`](https://github.com/renqianluo/NAO_pytorch) | 4 P40 | 6 days | TBD | 25.70% |
 
 by running:
 ```
