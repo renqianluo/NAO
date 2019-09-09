@@ -3,7 +3,6 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-import utils
 
 _BATCH_NORM_DECAY = 0.9
 _BATCH_NORM_EPSILON = 1e-5
@@ -38,9 +37,8 @@ class Encoder(object):
       x = tf.transpose(x, [1,0,2])
     cell_list = []
     for i in range(self.num_layers):
-      lstm_cell = utils.WeightNormLSTMCell(
-        self.hidden_size,
-        norm=self.wn)
+      lstm_cell = tf.nn.rnn_cell.LSTMCell(
+        self.hidden_size)
       lstm_cell = tf.contrib.rnn.DropoutWrapper(
         lstm_cell, 
         output_keep_prob=1-self.dropout)
@@ -71,7 +69,7 @@ class Encoder(object):
     
     for i in range(self.mlp_num_layers):
       name = 'mlp_{}'.format(i)
-      x = utils.weight_norm_dense(x, self.mlp_hidden_size, activation=tf.nn.relu, name=name, norm=self.wn)
+      x = tf.layers.dense(x, self.mlp_hidden_size, activation=tf.nn.relu, name=name)
       """ 
       x = tf.layers.batch_normalization(
         x, axis=1,
@@ -79,7 +77,7 @@ class Encoder(object):
         center=True, scale=True, training=is_training, fused=True
         )"""
       x = tf.layers.dropout(x, self.mlp_dropout, training=is_training)
-    self.predict_value = utils.weight_norm_dense(x, 1, activation=tf.sigmoid, name='regression', norm=self.wn)
+    self.predict_value = tf.layers.dense(x, 1, activation=tf.sigmoid, name='regression')
     return {
       'arch_emb' : self.arch_emb,
       'predict_value' : self.predict_value,

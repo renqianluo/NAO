@@ -5,7 +5,6 @@ from __future__ import print_function
 import tensorflow as tf
 from tensorflow.python.framework import ops
 from tensorflow.contrib.seq2seq.python.ops.basic_decoder import BasicDecoderOutput
-import utils
 
 class AttentionMultiCell(tf.nn.rnn_cell.MultiRNNCell):
   """A MultiCell with GNMT attention style."""
@@ -62,10 +61,9 @@ class AttentionMultiCell(tf.nn.rnn_cell.MultiRNNCell):
     return cur_inp, tuple(new_states)
 
 
-class MyWeightNormDense(utils.WeightNormDense):
+class MyDense(tf.layers.Dense):
   def __init__(self,
       units,
-      norm=False,
       activation=None,
       use_bias=True,
       kernel_initializer=None,
@@ -78,9 +76,8 @@ class MyWeightNormDense(utils.WeightNormDense):
       trainable=True,
       name=None,
       **kwargs):
-    super(MyWeightNormDense, self).__init__(
+    super(MyDense, self).__init__(
       units,
-      norm=norm,
       activation=None,
       use_bias=True,
       kernel_initializer=None,
@@ -276,9 +273,8 @@ class Decoder():
 
     cell_list = []
     for i in range(self.num_layers):
-      lstm_cell = utils.WeightNormLSTMCell(
-        self.hidden_size,
-        norm=self.wn)
+      lstm_cell = tf.nn.rnn_cell.LSTMCell(
+        self.hidden_size)
       lstm_cell = tf.contrib.rnn.DropoutWrapper(
         lstm_cell, 
         output_keep_prob=1-self.dropout)
@@ -380,8 +376,8 @@ class Model(object):
       self.W_emb = tf.get_variable('W_emb', [self.vocab_size, self.hidden_size])
       # Projection
       with tf.variable_scope("decoder/output_projection"):
-        self.output_layer = MyWeightNormDense(
-            self.vocab_size, use_bias=False, name="output_projection", norm=self.wn)
+        self.output_layer = MyDense(
+            self.vocab_size, use_bias=False, name="output_projection")
       self.logits, self.sample_id, self.final_context_state = self.build_decoder()
 
       ## Loss
