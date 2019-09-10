@@ -18,9 +18,9 @@ for index in range(1,N+1):
   arch = list(map(int, line.strip().split()))
   for i, e in enumerate(arch):
     if i % 2 == 0: #node index
-      arch[i] = arch[i] - 1
+      arch[i] = arch[i] + 1
     else: #activation function
-      arch[i] = arch[i] - 12
+      arch[i] = arch[i] + 12
   arch = ' '.join(list(map(str, arch)))
   inputs.append(arch)
 
